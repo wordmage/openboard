@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package org.dslul.openboard.inputmethod.keyboard;
+package com.android.inputmethod.keyboard;
 
 import android.graphics.Rect;
 import android.util.Log;
 
+import org.dslul.openboard.inputmethod.keyboard.Key;
 import org.dslul.openboard.inputmethod.keyboard.internal.TouchPositionCorrection;
 import org.dslul.openboard.inputmethod.latin.common.Constants;
 import org.dslul.openboard.inputmethod.latin.utils.JniUtils;
@@ -58,10 +59,10 @@ public class ProximityInfo {
     private final List<Key>[] mGridNeighbors;
 
     @SuppressWarnings("unchecked")
-    ProximityInfo(final int gridWidth, final int gridHeight, final int minWidth, final int height,
-            final int mostCommonKeyWidth, final int mostCommonKeyHeight,
-            @Nonnull final List<Key> sortedKeys,
-            @Nonnull final TouchPositionCorrection touchPositionCorrection) {
+    public ProximityInfo(final int gridWidth, final int gridHeight, final int minWidth, final int height,
+                         final int mostCommonKeyWidth, final int mostCommonKeyHeight,
+                         @Nonnull final List<Key> sortedKeys,
+                         @Nonnull final TouchPositionCorrection touchPositionCorrection) {
         mGridWidth = gridWidth;
         mGridHeight = gridHeight;
         mGridSize = mGridWidth * mGridHeight;
@@ -95,7 +96,7 @@ public class ProximityInfo {
 
     private static native void releaseProximityInfoNative(long nativeProximityInfo);
 
-    static boolean needsProximityInfo(final Key key) {
+    public static boolean needsProximityInfo(final Key key) {
         // Don't include special keys into ProximityInfo.
         return key.getCode() >= Constants.CODE_SPACE;
     }
