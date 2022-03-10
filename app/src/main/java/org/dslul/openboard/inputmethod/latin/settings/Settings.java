@@ -16,6 +16,7 @@
 
 package org.dslul.openboard.inputmethod.latin.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -24,6 +25,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.util.Log;
 
+import android.view.Gravity;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -107,6 +109,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             "pref_gesture_floating_preview_text";
     public static final String PREF_SHOW_SETUP_WIZARD_ICON = "pref_show_setup_wizard_icon";
 
+    public static final String PREF_ONE_HANDED_MODE = "pref_one_handed_mode_enabled";
+    public static final String PREF_ONE_HANDED_GRAVITY = "pref_one_handed_mode_gravity";
+
     public static final String PREF_KEY_IS_INTERNAL = "pref_key_is_internal";
 
     public static final String PREF_ENABLE_METRICS_LOGGING = "pref_enable_metrics_logging";
@@ -117,6 +122,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SHOW_HINTS = "pref_show_hints";
 
     public static final String PREF_SPACE_TO_CHANGE_LANG = "prefs_long_press_keyboard_to_change_lang";
+
+    public static final String PREF_ENABLE_CLIPBOARD_HISTORY = "pref_enable_clipboard_history";
+    public static final String PREF_CLIPBOARD_HISTORY_RETENTION_TIME = "pref_clipboard_history_retention_time";
 
     // This preference key is deprecated. Use {@link #PREF_SHOW_LANGUAGE_SWITCH_KEY} instead.
     // This is being used only for the backward compatibility.
@@ -348,6 +356,22 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         final int milliseconds = prefs.getInt(prefKey, UNDEFINED_PREFERENCE_VALUE_INT);
         return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds : defaultValue;
     }
+
+    public static boolean readClipboardHistoryEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_ENABLE_CLIPBOARD_HISTORY, true);
+    }
+
+    public static int readClipboardHistoryRetentionTime(final SharedPreferences prefs,
+                                              final Resources res) {
+        final int minutes = prefs.getInt(
+                PREF_CLIPBOARD_HISTORY_RETENTION_TIME, UNDEFINED_PREFERENCE_VALUE_INT);
+        return (minutes != UNDEFINED_PREFERENCE_VALUE_INT) ? minutes
+                : readDefaultClipboardHistoryRetentionTime(res);
+    }
+
+    public static int readDefaultClipboardHistoryRetentionTime(final Resources res) {
+        return res.getInteger(R.integer.config_clipboard_history_retention_time);
+    }
     
     public static boolean readShowsNumberRow(final SharedPreferences prefs) {
         return prefs.getBoolean(PREF_SHOW_NUMBER_ROW, false);
@@ -382,6 +406,23 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             return !isApplicationInSystemImage;
         }
         return prefs.getBoolean(PREF_SHOW_SETUP_WIZARD_ICON, false);
+    }
+
+    public static boolean readOneHandedModeEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_ONE_HANDED_MODE, false);
+    }
+
+    public void writeOneHandedModeEnabled(final boolean enabled) {
+        mPrefs.edit().putBoolean(PREF_ONE_HANDED_MODE, enabled).apply();
+    }
+
+    @SuppressLint("RtlHardcoded")
+    public static int readOneHandedModeGravity(final SharedPreferences prefs) {
+        return prefs.getInt(PREF_ONE_HANDED_GRAVITY, Gravity.LEFT);
+    }
+
+    public void writeOneHandedModeGravity(final int gravity) {
+        mPrefs.edit().putInt(PREF_ONE_HANDED_GRAVITY, gravity).apply();
     }
 
     public static boolean readHasHardwareKeyboard(final Configuration conf) {
