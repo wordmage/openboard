@@ -26,16 +26,11 @@ public final class JniUtils {
     public static boolean sHaveGestureLib = false;
     static {
         try {
-            System.loadLibrary(JniLibName.JNI_LIB_NAME2);
-            sHaveGestureLib = true;
-        } catch (UnsatisfiedLinkError ue) {
-            Log.e(TAG, "Could not load native library " + JniLibName.JNI_LIB_NAME2, ue);
-            try {
-                System.loadLibrary(JniLibName.JNI_LIB_NAME);
-            } catch (UnsatisfiedLinkError ule) {
-                Log.e(TAG, "Could not load native library " + JniLibName.JNI_LIB_NAME, ule);
-            }
+            System.loadLibrary(JniLibName.JNI_LIB_NAME);
+        } catch (UnsatisfiedLinkError ule) {
+            Log.e(TAG, "Could not load native library " + JniLibName.JNI_LIB_NAME, ule);
         }
+
     }
 
     private JniUtils() {
