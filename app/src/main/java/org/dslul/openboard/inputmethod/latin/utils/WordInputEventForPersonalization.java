@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.inputmethod.latin.utils;
+package org.dslul.openboard.inputmethod.latin.utils;
 
 import android.util.Log;
 
@@ -23,7 +23,6 @@ import org.dslul.openboard.inputmethod.latin.NgramContext;
 import org.dslul.openboard.inputmethod.latin.common.StringUtils;
 import org.dslul.openboard.inputmethod.latin.define.DecoderSpecificConstants;
 import org.dslul.openboard.inputmethod.latin.settings.SpacingAndPunctuations;
-import org.dslul.openboard.inputmethod.latin.utils.DictionaryInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;

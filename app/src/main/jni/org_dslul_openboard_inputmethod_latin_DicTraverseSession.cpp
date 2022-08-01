@@ -16,7 +16,7 @@
 
 #define LOG_TAG "LatinIME: jni: Session"
 
-#include "com_android_inputmethod_latin_DicTraverseSession.h"
+#include "org_dslul_openboard_inputmethod_latin_DicTraverseSession.h"
 
 #include "defines.h"
 #include "dictionary/property/ngram_context.h"

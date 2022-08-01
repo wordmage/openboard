@@ -26,8 +26,6 @@ import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.inputmethod.latin.BinaryDictionary;
-
 import org.dslul.openboard.inputmethod.annotations.ExternallyReferenced;
 import org.dslul.openboard.inputmethod.latin.utils.SubtypeLocaleUtils;
 

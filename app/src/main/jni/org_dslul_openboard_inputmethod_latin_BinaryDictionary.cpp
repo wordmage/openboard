@@ -16,7 +16,7 @@
 
 #define LOG_TAG "LatinIME: jni: BinaryDictionary"
 
-#include "com_android_inputmethod_latin_BinaryDictionary.h"
+#include "org_dslul_openboard_inputmethod_latin_BinaryDictionary.h"
 
 #include <cstring> // for memset()
 #include <vector>

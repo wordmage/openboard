@@ -16,7 +16,7 @@
 
 #define LOG_TAG "LatinIME: jni: ProximityInfo"
 
-#include "com_android_inputmethod_keyboard_ProximityInfo.h"
+#include "org_dslul_openboard_inputmethod_keyboard_ProximityInfo.h"
 
 #include "defines.h"
 #include "jni.h"
