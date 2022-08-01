@@ -258,9 +258,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static boolean readFromBuildConfigIfGestureInputEnabled(final Resources res) {
-        if (!JniUtils.sHaveGestureLib) {
-            return false;
-        }
         return res.getBoolean(R.bool.config_gesture_input_enabled_by_build_config);
     }
 

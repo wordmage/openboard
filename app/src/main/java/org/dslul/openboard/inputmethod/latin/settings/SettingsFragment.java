@@ -53,10 +53,6 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.setTitle(
                 ApplicationUtils.getActivityTitleResId(getActivity(), SettingsActivity.class));
-        if (!JniUtils.sHaveGestureLib) {
-            final Preference gesturePreference = findPreference(Settings.SCREEN_GESTURE);
-            preferenceScreen.removePreference(gesturePreference);
-        }
     }
 
     @Override
