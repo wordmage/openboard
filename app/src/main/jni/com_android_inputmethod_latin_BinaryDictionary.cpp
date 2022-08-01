@@ -717,7 +717,7 @@ static const JNINativeMethod sMethods[] = {
     {
         const_cast<char *>("updateEntriesForInputEventsNative"),
         const_cast<char *>(
-                "(J[Lcom/android/inputmethod/latin/utils/WordInputEventForPersonalization;I)I"),
+                "(J[Lorg/dslul/openboard/inputmethod/latin/utils/WordInputEventForPersonalization;I)I"),
         reinterpret_cast<void *>(latinime_BinaryDictionary_updateEntriesForInputEvents)
     },
     {
@@ -738,7 +738,7 @@ static const JNINativeMethod sMethods[] = {
 };
 
 int register_BinaryDictionary(JNIEnv *env) {
-    const char *const kClassPathName = "com/android/inputmethod/latin/BinaryDictionary";
+    const char *const kClassPathName = "org/dslul/openboard/inputmethod/latin/BinaryDictionary";
     return registerNativeMethods(env, kClassPathName, sMethods, NELEMS(sMethods));
 }
 } // namespace latinime
