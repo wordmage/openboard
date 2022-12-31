@@ -9,8 +9,8 @@ android {
         applicationId "org.dslul.openboard.inputmethod.latin"
         minSdkVersion 19
         targetSdkVersion 31
-        versionCode 18
-        versionName '1.4.4'
+        versionCode 19
+        versionName '1.4.5'
     }
 
     buildTypes {
@@ -47,4 +47,5 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'me.xdrop:fuzzywuzzy:1.4.0'
 }

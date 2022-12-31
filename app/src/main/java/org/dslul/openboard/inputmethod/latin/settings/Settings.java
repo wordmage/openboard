@@ -22,10 +22,12 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
 import android.view.Gravity;
+import org.dslul.openboard.inputmethod.keyboard.KeyboardTheme;
 import org.dslul.openboard.inputmethod.latin.AudioAndHapticFeedbackManager;
 import org.dslul.openboard.inputmethod.latin.InputAttributes;
 import org.dslul.openboard.inputmethod.latin.R;
@@ -65,10 +67,8 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_VOICE_INPUT_KEY = "pref_voice_input_key";
     public static final String PREF_CLIPBOARD_CLIPBOARD_KEY = "pref_clipboard_clipboard_key";
     public static final String PREF_EDIT_PERSONAL_DICTIONARY = "edit_personal_dictionary";
-    // PREF_AUTO_CORRECTION_THRESHOLD_OBSOLETE is obsolete. Use PREF_AUTO_CORRECTION instead.
-    public static final String PREF_AUTO_CORRECTION_THRESHOLD_OBSOLETE =
-            "auto_correction_threshold";
     public static final String PREF_AUTO_CORRECTION = "pref_key_auto_correction";
+    public static final String PREF_AUTO_CORRECTION_CONFIDENCE = "pref_key_auto_correction_confidence";
     // PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE is obsolete. Use PREF_SHOW_SUGGESTIONS instead.
     public static final String PREF_SHOW_SUGGESTIONS_SETTING_OBSOLETE = "show_suggestions_setting";
     public static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
@@ -85,6 +85,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             "pref_show_language_switch_key";
     public static final String PREF_SHOW_EMOJI_KEY =
             "pref_show_emoji_key";
+    public static final String PREF_KEYBOARD_COLOR = "pref_keyboard_color";
     public static final String PREF_SHOW_CLIPBOARD_KEY =
             "pref_show_clipboard_key";
     public static final String PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST =
@@ -173,7 +174,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mRes = context.getResources();
         mPrefs = DeviceProtectedUtils.getSharedPreferences(context);
         mPrefs.registerOnSharedPreferenceChangeListener(this);
-        upgradeAutocorrectionSettings(mPrefs, mRes);
     }
 
     public void onDestroy() {
@@ -245,6 +245,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static boolean readAutoCorrectEnabled(final SharedPreferences prefs,
                                                  final Resources res) {
         return prefs.getBoolean(PREF_AUTO_CORRECTION, true);
+    }
+
+    public static String readAutoCorrectConfidence(final SharedPreferences prefs,
+                                                   final Resources res) {
+        return prefs.getString(PREF_AUTO_CORRECTION_CONFIDENCE,
+                res.getString(R.string.auto_correction_threshold_mode_index_modest));
     }
 
     public static float readPlausibilityThreshold(final Resources res) {
@@ -509,6 +515,24 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static int readLastShownEmojiCategoryPageId(
             final SharedPreferences prefs, final int defValue) {
         return prefs.getInt(PREF_LAST_SHOWN_EMOJI_CATEGORY_PAGE_ID, defValue);
+    }
+
+
+    public static int readKeyboardColor(final SharedPreferences prefs, final Context context) {
+        return prefs.getInt(PREF_KEYBOARD_COLOR, readKeyboardDefaultColor(context));
+    }
+
+    public static int readKeyboardDefaultColor(final Context context) {
+        final int[] keyboardThemeColors = context.getResources().getIntArray(R.array.keyboard_theme_colors);
+        final int[] keyboardThemeIds = context.getResources().getIntArray(R.array.keyboard_theme_ids);
+        final int themeId = KeyboardTheme.getKeyboardTheme(context).mThemeId;
+        for (int index = 0; index < keyboardThemeIds.length; index++) {
+            if (themeId == keyboardThemeIds[index]) {
+                return keyboardThemeColors[index];
+            }
+        }
+
+        return Color.LTGRAY;
     }
 
     private void upgradeAutocorrectionSettings(final SharedPreferences prefs, final Resources res) {
